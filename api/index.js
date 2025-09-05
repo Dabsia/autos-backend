@@ -3,7 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-import serverless from "@vendia/serverless-express";
+const serverless = require("@vendia/serverless-express");
 
 // Load environment variables
 dotenv.config();
