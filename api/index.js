@@ -1098,10 +1098,10 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Server running on http://localhost:${port}`);
-});
-
-// Export as serverless function
+if (process.env.NODE_ENV !== "serverless") {
+  app.listen(port, () => {
+    console.log(`🚀 Server running on http://localhost:${port}`);
+  });
+}
 
 module.exports = serverless({ app });
