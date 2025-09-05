@@ -25,7 +25,7 @@ app.use(express.json()); // This MUST come before preventDuplicateProcessing
 app.use(
   cors({
     origin: "http://localhost:5173", // or "*" for all
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
 app.use(express.urlencoded({ extended: true }));
@@ -1102,6 +1102,6 @@ app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
 });
 
-const handler = serverlessExpress({ app });
+// Export as serverless function
 
-module.exports.handler = handler;
+module.exports = serverless({ app });
