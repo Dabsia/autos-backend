@@ -1098,5 +1098,6 @@ app.listen(port, () => {
 });
 
 // Export as serverless function
-
-module.exports = serverless({ app });
+module.exports = (req, res) => {
+  return app(req, res);
+};
