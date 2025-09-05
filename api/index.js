@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const serverless = require("@vendia/serverless-express");
+const connectDB = require("./db");
+connectDB();
 
 // Load environment variables
 dotenv.config();
@@ -769,8 +771,8 @@ async function mergeDuplicateUsers() {
   }
 }
 
-// Run this once to clean up existing duplicates
-mergeDuplicateUsers();
+// // Run this once to clean up existing duplicates
+// mergeDuplicateUsers();
 
 // Function to check and update expired subscriptions
 async function checkExpiredSubscriptions() {
@@ -811,9 +813,9 @@ async function checkExpiredSubscriptions() {
 }
 
 // Run the check every hour
-setInterval(checkExpiredSubscriptions, 60 * 60 * 1000);
+// setInterval(checkExpiredSubscriptions, 60 * 60 * 1000);
 // Also run on startup
-checkExpiredSubscriptions();
+// checkExpiredSubscriptions();
 
 // Get all payments for admin dashboard
 app.get("/admin/payments", async (req, res) => {
@@ -1096,4 +1098,5 @@ app.listen(port, () => {
 });
 
 // Export as serverless function
-export const handler = serverless({ app });
+
+module.exports = serverless({ app });
