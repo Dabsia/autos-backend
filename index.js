@@ -32,9 +32,8 @@ app.use(
 
       const allowedOrigins = [
         "http://localhost:5173",
-        "http://localhost:3000",
         "https://autos-backend-i7tj.vercel.app", // Replace with your actual domain
-        "https://auto-spa-club.vercel.app/", // Replace with your actual domain
+        "https://auto-spa-club.vercel.app", // Replace with your actual domain
       ];
 
       if (allowedOrigins.indexOf(origin) !== -1) {
