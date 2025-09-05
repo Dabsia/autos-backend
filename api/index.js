@@ -22,7 +22,12 @@ const activeRequests = new Map();
 // MIDDLEWARE - MUST COME BEFORE ROUTES
 app.use(morgan("dev"));
 app.use(express.json()); // This MUST come before preventDuplicateProcessing
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // or "*" for all
+    methods: ["GET", "POST", "OPTIONS"],
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 
 // Health check
@@ -1097,7 +1102,6 @@ app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
 });
 
-// Export as serverless function
-module.exports = (req, res) => {
-  return app(req, res);
-};
+const handler = serverlessExpress({ app });
+
+module.exports.handler = handler;
