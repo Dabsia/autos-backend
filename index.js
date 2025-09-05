@@ -270,10 +270,12 @@ app.post("/api/create-payment", async (req, res) => {
       });
     }
 
-    const baseUrl =
-      process.env.NODE_ENV === "production"
-        ? "https://yourdomain.com" // Replace with your actual domain
-        : "http://localhost:5173";
+    // const baseUrl =
+    //   process.env.NODE_ENV === "production"
+    //     ? "https://yourdomain.com" // Replace with your actual domain
+    //     : "http://localhost:5173";
+
+    const baseUrl = "http://localhost:5173";
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
