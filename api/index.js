@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+import serverless from "@vendia/serverless-express";
 
 // Load environment variables
 dotenv.config();
@@ -1093,3 +1094,6 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
 });
+
+// Export as serverless function
+export const handler = serverless({ app });
