@@ -67,33 +67,7 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api/v1/", authRoutes);
-
-// Health check endpoint
-app.get("/health", (req, res) => {
-  const dbState = mongoose.connection.readyState;
-  const states = {
-    0: "disconnected",
-    1: "connected",
-    2: "connecting",
-    3: "disconnecting",
-  };
-
-  res.json({
-    status: dbState === 1 ? "healthy" : "unhealthy",
-    database: states[dbState],
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-  });
-});
-
 // Simple test endpoint
-app.get("/test", (req, res) => {
-  res.json({
-    message: "Server is running!",
-    database:
-      mongoose.connection.readyState === 1 ? "connected" : "disconnected",
-  });
-});
 
 // Root endpoint
 app.get("/", (req, res) => {
