@@ -39,7 +39,7 @@ const corsOptions = {
       "http://localhost:5173",
       "http://localhost:3000",
       "https://autos-backend-2h3h.onrender.com",
-      "auto-spa-club.vercel.app",
+      "https://auto-spa-club.vercel.app",
       // Add your production frontend URL here when deployed
     ];
 
