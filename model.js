@@ -9,6 +9,10 @@ const reviewsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  rating: {
+    type: Number,
+    required: true,
+  },
 });
 
 export const Reviews = mongoose.model("Review", reviewsSchema);

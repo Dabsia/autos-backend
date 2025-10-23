@@ -89,25 +89,12 @@ const startServer = async () => {
 
     if (!connectionString) {
       console.error("❌ Database connection string is missing!");
-      console.log("💡 Please add DB_CONNECTION_STRING to your .env file");
-      console.log(
-        "💡 Example: DB_CONNECTION_STRING=mongodb+srv://username:password@cluster.mongodb.net/database"
-      );
       process.exit(1);
     }
-
-    console.log("📡 Found connection string, connecting to database...");
     await connectToDatabase();
 
-    console.log("✅ Database connected, starting HTTP server...");
     app.listen(PORT, () => {
       console.log(`🎉 Server running on port ${PORT}`);
-      console.log(`📍 Health check: http://localhost:${PORT}/health`);
-      console.log(`📍 Test endpoint: http://localhost:${PORT}/test`);
-      console.log(`📍 API base: http://localhost:${PORT}/api/v1/`);
-      console.log(
-        `🌐 CORS enabled for: http://localhost:5173, https://autos-backend-2h3h.onrender.com`
-      );
     });
   } catch (error) {
     console.error("💥 Failed to start server:", error.message);

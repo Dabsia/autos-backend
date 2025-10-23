@@ -36,13 +36,13 @@ export const getReviews = async (req, res) => {
 };
 
 export const registerReview = async (req, res) => {
-  const { fullname, message } = req.body;
+  const { fullname, message, rating } = req.body;
 
   try {
     // Ensure connection before query
     await ensureConnection();
 
-    if (!fullname || !message) {
+    if (!fullname || !message || !rating) {
       return res.status(400).json({
         status: false,
         message: "All fields are required",
@@ -63,6 +63,7 @@ export const registerReview = async (req, res) => {
     const review = new Reviews({
       fullname,
       message,
+      rating,
     });
 
     await review.save();
