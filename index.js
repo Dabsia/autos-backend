@@ -25,20 +25,45 @@ console.log(
 
 const PORT = process.env.PORT || 3000;
 
-// Configure mongoose (remove deprecated options)
+// Configure mongoose
 mongoose.set("bufferCommands", false);
+
+// **IMPROVED CORS CONFIGURATION**
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    // List of allowed origins
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://autos-backend-2h3h.onrender.com",
+      "auto-spa-club.vercel.app",
+      // Add your production frontend URL here when deployed
+    ];
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+// Apply CORS middleware BEFORE routes
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options("*", cors(corsOptions));
 
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
 
 // Routes
 app.use("/api/v1/", authRoutes);
@@ -70,6 +95,15 @@ app.get("/test", (req, res) => {
   });
 });
 
+// Root endpoint
+app.get("/", (req, res) => {
+  res.json({
+    message: "AutoSpare Backend API",
+    version: "1.0.0",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Start server
 const startServer = async () => {
   try {
@@ -97,6 +131,9 @@ const startServer = async () => {
       console.log(`📍 Health check: http://localhost:${PORT}/health`);
       console.log(`📍 Test endpoint: http://localhost:${PORT}/test`);
       console.log(`📍 API base: http://localhost:${PORT}/api/v1/`);
+      console.log(
+        `🌐 CORS enabled for: http://localhost:5173, https://autos-backend-2h3h.onrender.com`
+      );
     });
   } catch (error) {
     console.error("💥 Failed to start server:", error.message);
