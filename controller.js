@@ -49,16 +49,16 @@ export const registerReview = async (req, res) => {
       });
     }
 
-    const reviewAlreadyExists = await Reviews.findOne({ fullname })
-      .maxTimeMS(15000)
-      .exec();
+    // const reviewAlreadyExists = await Reviews.findOne({ fullname })
+    //   .maxTimeMS(15000)
+    //   .exec();
 
-    if (reviewAlreadyExists) {
-      return res.status(400).json({
-        status: false,
-        message: `${fullname} has already been registered`,
-      });
-    }
+    // if (reviewAlreadyExists) {
+    //   return res.status(400).json({
+    //     status: false,
+    //     message: `${fullname} has already been registered`,
+    //   });
+    // }
 
     const review = new Reviews({
       fullname,
